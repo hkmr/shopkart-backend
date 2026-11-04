@@ -8,4 +8,6 @@ public final class ValidationPatterns {
 
     public static final String PHONE = "^\\+?[0-9]{7,15}$";
     public static final String PHONE_MESSAGE = "Phone must be 7-15 digits, optionally starting with +";
+
+    public static final String POSTAL_CODE = "^[A-Za-z0-9 -]{3,12}$";
 }

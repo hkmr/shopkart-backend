@@ -39,7 +39,9 @@ public class Address extends BaseEntity {
     private String country;
 
     @Column(name = "address_type", nullable = false)
+    @Enumerated(EnumType.STRING)
     private AddressType addressType;
+
     private boolean defaultAddress = false;
 
     @ManyToOne(fetch = FetchType.LAZY)

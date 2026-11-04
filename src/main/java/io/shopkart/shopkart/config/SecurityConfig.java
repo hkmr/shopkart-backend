@@ -53,13 +53,17 @@ public class SecurityConfig {
    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) {
 
-        http.csrf(csrf -> csrf.disable())
+        http
+                .csrf(csrf -> csrf.disable())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(
                         auth -> auth.requestMatchers(
-                        "/api/auth/login",
-                        "/api/auth/register"
-                ).permitAll().anyRequest().authenticated())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+                        "/api/auth/login", "/api/auth/register").permitAll()
+                                .anyRequest().authenticated()
+                )
+                .oauth2ResourceServer(oauth ->
+                        oauth.jwt(jwt -> {})
+                );
 
         return http.build();
     }

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -55,11 +56,23 @@ public class User extends BaseEntity {
     private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Address> addresses;
+    private List<Address> addresses = new ArrayList<>();
 
 
     public void addRole(Role role) {
         this.roles.add(role);
+    }
+
+    public void addAddress(Address address) {
+        this.addresses.add(address);
+    }
+
+    public boolean removeAddress(Long id) {
+        if (id == null || addresses == null) {
+            return false;
+        }
+
+        return addresses.removeIf(address -> id.equals(address.getId()));
     }
 
 }
