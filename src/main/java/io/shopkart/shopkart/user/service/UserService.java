@@ -10,6 +10,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -37,6 +39,11 @@ public class UserService {
 
         user = userRepository.save(user);
         return UserProfileResponseDto.from(user);
+    }
+
+    public UserListResponseDto getUserList(Authentication authentication) {
+        List<User> userList = userRepository.findAll();
+        return UserListResponseDto.from(userList);
     }
 
     public AddressListResponseDto getUserAddressList(Authentication authentication) {
