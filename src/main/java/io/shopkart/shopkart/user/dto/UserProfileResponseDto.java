@@ -8,6 +8,7 @@ public record UserProfileResponseDto(
         String name,
         String email,
         String phone,
+        List<String> roles,
         boolean isEmailVerified,
         List<AddressResponseDto> addresses
 ) {
@@ -17,10 +18,14 @@ public record UserProfileResponseDto(
         List<AddressResponseDto> addressList = user.getAddresses()
                 .stream().map(AddressResponseDto::from).toList();
 
+        List<String> roles = user.getRoles()
+                .stream().map(role -> role.getName().toString()).toList();
+
         return new UserProfileResponseDto(
                 user.getName(),
                 user.getEmail(),
                 user.getPhone(),
+                roles,
                 user.isEmailVerified(),
                 addressList
         );

@@ -1,6 +1,7 @@
 package io.shopkart.shopkart.config;
 
 import io.shopkart.shopkart.auth.service.CustomUserDetailsService;
+import io.shopkart.shopkart.user.enums.RoleName;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -59,6 +60,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         auth -> auth.requestMatchers(
                         "/api/auth/login", "/api/auth/register").permitAll()
+                                .requestMatchers("/api/admin/**").hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth ->
