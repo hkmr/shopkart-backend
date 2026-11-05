@@ -1,9 +1,7 @@
 package io.shopkart.shopkart.catalog.controller;
 
 import io.shopkart.shopkart.catalog.Entity.Category;
-import io.shopkart.shopkart.catalog.dto.AddCategoryRequestDto;
-import io.shopkart.shopkart.catalog.dto.AddCategoryResponseDto;
-import io.shopkart.shopkart.catalog.dto.CategoryListResponseDto;
+import io.shopkart.shopkart.catalog.dto.*;
 import io.shopkart.shopkart.catalog.service.CategoryService;
 import io.shopkart.shopkart.common.dto.ApiResponse;
 import jakarta.validation.Valid;
@@ -42,14 +40,23 @@ public class CategoryController {
                 .body(ApiResponse.success(categoryService.createCategory(requestDto)));
     }
 
-    @PutMapping
-    public void updateCategory() {
-
+    @PutMapping("/{categoryId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ApiResponse<CategoryResponseDto>> updateCategory(
+            @PathVariable Long categoryId,
+            @Valid @RequestBody UpdateCategoryRequestDto requestDto) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(ApiResponse.success(categoryService.updateCategory(categoryId, requestDto)));
     }
 
-    @DeleteMapping
-    public void deleteCategory() {
-
+    @DeleteMapping("/{categoryId}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ApiResponse<String>> deleteCategory(
+            @PathVariable Long categoryId
+    ) {
+        categoryService.deleteCategory(categoryId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                .body(ApiResponse.success("Category deleted successfully"));
     }
 
 }

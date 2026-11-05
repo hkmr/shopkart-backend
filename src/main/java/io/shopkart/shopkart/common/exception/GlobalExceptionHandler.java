@@ -102,6 +102,13 @@ public class GlobalExceptionHandler {
         return build(HttpStatus.UNAUTHORIZED, "UNAUTHORIZED", "Authentication failed", req);
     }
 
+    // ---------------- General ----------------
+
+    @ExceptionHandler(NotAllowedException.class)
+    public ResponseEntity<ApiError> notAllowed(NotAllowedException ex, HttpServletRequest req) {
+        return build(HttpStatus.METHOD_NOT_ALLOWED, "NOT_ALLOWED", ex.getMessage(), req);
+    }
+
 
     // ---------------- fallback ----------------
 
