@@ -8,6 +8,7 @@ public record ProductListRequestDto(
         Long brandId,
         BigInteger minPrice,
         BigInteger maxPrice,
-        Integer rating
+        Integer rating,
+        String sort
 ) {
 }

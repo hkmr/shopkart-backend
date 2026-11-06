@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public record ProductResponseDto(
+        Long id,
         String name,
         String slug,
         String sku,
@@ -21,6 +22,7 @@ public record ProductResponseDto(
 
     public static ProductResponseDto from(Product product) {
         return new ProductResponseDto(
+                product.getId(),
                 product.getName(),
                 product.getSlug(),
                 product.getSku(),
