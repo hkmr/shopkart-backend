@@ -19,11 +19,11 @@ public class BaseEntity {
     private Long id;
 
     @CreatedDate
-    @Column(nullable = false, updatable = false)
-    private Instant created_at = Instant.now();
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Instant createdAt = Instant.now();
 
     @LastModifiedDate
-    @Column(nullable = false)
-    private Instant updated_at = Instant.now();
+    @Column(name = "updated_at", nullable = false)
+    private Instant updatedAt = Instant.now();
 
 }
